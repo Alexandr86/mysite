@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+    {% for post in object_list %}
+        <p>{{ post.datetime }}</p>
+        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+        <p>{{ post.intro|safe }}</p>
+{#        <p>{{ post.content|safe }}</p>#}
+         <img src={% static 'assets/' %}{{ post.image }} class="img-circle" width='64' height='64'/>
+    {% empty %}
+    <p>Нет постов</p>
+    {% endfor %}
+{% endblock %}

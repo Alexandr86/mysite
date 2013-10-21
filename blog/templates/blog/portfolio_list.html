@@ -1,0 +1,14 @@
+{% extends 'blog/base.html'%}
+{% load static %}
+{% block title%} Портфолио {% endblock %}
+{% block content %}
+    {% for site in object_list %}
+        <h4> {{ site.name }} </h4>
+        <p class="well">
+            <a href={{ site.url }}> {{ site.url }}</a>
+        </p>
+        <img src={% static 'assets/' %}{{ site.screen_shot }}/>
+         <hr>
+    {% endfor %}
+
+{% endblock %}

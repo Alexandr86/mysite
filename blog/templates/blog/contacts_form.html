@@ -1,0 +1,56 @@
+{% extends 'blog/base.html'%}
+{% load static %}
+{% block title %}Контакты{% endblock %}
+{% block jquery %}
+    $(document).ready(function() {
+        $('#sendMsg').submit(function() { // catch the form's submit event
+            $.ajax({ // create an AJAX call...
+                data: $(this).serialize(), // get the form data
+                type: $(this).attr('method'), // GET or POST
+                url: $(this).attr('action'), // the file to call
+
+                success: function(response) { // on success..
+                    $('#msg').text('Сообщение успешно отправлено. Спасибо!');
+                    $('#id_name').prop("disabled", true);
+                    $('#id_email').prop("disabled", true);
+                    $('#id_message').prop("disabled", true);
+                    }
+            });
+            return false;
+        });
+    });
+{% endblock %}
+{% block content %}
+    <p class="text-success" id="msg"></p>
+    <h3> Обратная связь </h3>
+    <div class="row-fluid">
+    <div class="span4">
+
+    <form action='' method="post" class="form-horizontal" id="sendMsg">
+						{% csrf_token %}
+						{% if form.errors %}
+							<div class="alert alert-error">
+								{{ form.errors }}
+							</div>
+						{% endif %}
+    {{ form.name.label }}<br>
+    {{ form.name }} <br>
+    {{ form.email.label }}<br>
+    {{ form.email }} <br>
+    {{ form.message.label }}<br>
+    {{ form.message }}<br>
+	<button type="submit" class="btn btn-primary">Отправить</button>
+    </form>
+</div>
+
+
+
+     <div class="span8">
+      <a href="https://github.com/Alexandr86"><img title="Просмотреть некоторые исходные коды проектов" src={% static 'assets/images/git_.png'%}/></a>
+       <a href="https://plus.google.com/u/0/111915407230116681222/posts/p/pub"><img title="Просмотреть профиль Google+" class="img-circle" src={% static 'assets/images/gplus.png'%}/></a>
+          <a href="http://ua.linkedin.com/pub/alexander-kandich/47/659/93a/"><img title="Просмотреть профиль LinkedIn" src={% static 'assets/images/linkedin.png'%}/></a>
+          <a href="mailto:sskandich@gmail.com"><img title="Отправить email" src={% static 'assets/images/gmail.png'%}/></a>
+     </div>
+    </div>
+{% endblock %}
+

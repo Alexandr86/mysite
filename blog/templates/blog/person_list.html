@@ -1,0 +1,11 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %} Резюме {% endblock %}
+{% block content %}
+    {% for person in object_list %}
+    <h4 class="pull-right">{{ person.first_name }}  {{ person.last_name }} <br><small>Python developer</small></h4>
+        <p>{{ person.about|safe }}</p>
+    {% empty %}
+    <p>...</p>
+    {% endfor %}
+{% endblock %}
